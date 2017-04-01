@@ -1,0 +1,12 @@
+{
+  "name": "luch",
+  "version": "0.0.0",
+  "description": "luch",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surovv/luch.git"
+  },
+  "scripts": {},
+  "author": "surovv",
+  "license": "MIT"
+}
