@@ -1,0 +1,22 @@
+{
+  "plugins": ["fp", "prefer-object-spread"],
+  "extends": ["plugin:fp/recommended"],
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module"
+  },
+  "ecmaFeatures": {
+    "spread": true,
+    "experimentalObjectRestSpread": true
+  },
+  "rules": {
+    "fp/no-rest-parameters": 1,
+    "fp/no-unused-expression": 1,
+    "no-extra-semi": 1
+  }
+
+}

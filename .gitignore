@@ -1,0 +1,6 @@
+build
+node_modules
+*.log
+.tags
+.idea
+src/scripts/constants/skeys.js
