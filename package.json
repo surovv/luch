@@ -1,6 +1,6 @@
 {
   "name": "luch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "luch",
   "main": "dist/kleisli.js",
   "repository": {

@@ -14,12 +14,15 @@ const genFdReqConfig = (method, data) => ({
   method: method,
   body: appendToFormData(data)
 });
+const genQueryReqConfig = method => ({method});
 
 const genFdRequest = method => (url, data={}, config={}) => fetch(url, Object.assign({}, genFdReqConfig(method, data), config));
-
+const genQueryRequest = method => (url, params, config = {}) =>
+  fetch(`${url}${params ? `?${convertToQuery(params)}` : ''}`, Object.assign({}, genQueryReqConfig(method), config));
 
 const methods = {
-  get: (url, params, config = {}) => fetch(`${url}?${convertToQuery(params)}`, config),
+  get: genQueryRequest('GET'),
+  head: genQueryRequest('HEAD'),
   post: genFdRequest('POST')
 }
 
