@@ -23,7 +23,9 @@ const genQueryRequest = method => (url, params, config = {}) =>
 const methods = {
   get: genQueryRequest('GET'),
   head: genQueryRequest('HEAD'),
-  post: genFdRequest('POST')
+  post: genFdRequest('POST'),
+  put: genFdRequest('PUT'),
+  patch: genFdRequest('PATCH')
 }
 
 
