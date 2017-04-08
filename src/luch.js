@@ -10,15 +10,15 @@ export const appendToFormData = (obj, fd = new FormData()) => {
   return fd;
 };
 
-const genFdReqConfig = (method, data) => ({
+const genFdReqOptions = (method, data) => ({
   method: method,
   body: appendToFormData(data)
 });
-const genQueryReqConfig = method => ({method});
+const genQueryReqOptions = method => ({method});
 
-const genFdRequest = method => (url, data={}, config={}) => fetch(url, Object.assign({}, genFdReqConfig(method, data), config));
-const genQueryRequest = method => (url, params, config = {}) =>
-  fetch(`${url}${params ? `?${convertToQuery(params)}` : ''}`, Object.assign({}, genQueryReqConfig(method), config));
+const genFdRequest = method => (url, data={}, options={}) => fetch(url, Object.assign({}, genFdReqOptions(method, data), options));
+const genQueryRequest = method => (url, params, options = {}) =>
+  fetch(`${url}${params ? `?${convertToQuery(params)}` : ''}`, Object.assign({}, genQueryReqOptions(method), options));
 
 const methods = {
   get: genQueryRequest('GET'),
@@ -32,6 +32,6 @@ const methods = {
 export const getJson = resp => resp.json();
 
 
-export const luch = Object.assign((url, config = {}) => fetch(url, config), methods);
+export const luch = Object.assign((url, options = {}) => fetch(url, options), methods);
 
 export default luch;
