@@ -20,7 +20,7 @@ According to origin [isomorphic-fetch](https://github.com/matthew-andrews/isomor
 ###  NPM
 
 ```sh
-npm install --save isomorphic-fetch es6-promise
+npm install --save luch es6-promise
 ```
 
 ## Usage
