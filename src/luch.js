@@ -10,23 +10,23 @@ export const appendToFormData = (obj, fd = new FormData()) => {
   return fd;
 };
 
-const genFdReqOptions = (method, data) => ({
+const createFdReqOptions = (method, data) => ({
   method: method,
   body: appendToFormData(data)
 });
-const genQueryReqOptions = method => ({method});
+const createQueryReqOptions = method => ({method});
 
-const genFdRequest = method => (url, data={}, options={}) => fetch(url, Object.assign({}, genFdReqOptions(method, data), options));
-const genQueryRequest = method => (url, params, options = {}) =>
-  fetch(`${url}${params ? `?${convertToQuery(params)}` : ''}`, Object.assign({}, genQueryReqOptions(method), options));
+const createFdRequest = method => (url, data={}, options={}) => fetch(url, Object.assign({}, createFdReqOptions(method, data), options));
+const createQueryRequest = method => (url, params, options = {}) =>
+  fetch(`${url}${params ? `?${convertToQuery(params)}` : ''}`, Object.assign({}, createQueryReqOptions(method), options));
 
 const methods = {
-  get: genQueryRequest('GET'),
-  head: genQueryRequest('HEAD'),
-  delete: genQueryRequest('DELETE'),
-  post: genFdRequest('POST'),
-  put: genFdRequest('PUT'),
-  patch: genFdRequest('PATCH')
+  get: createQueryRequest('GET'),
+  head: createQueryRequest('HEAD'),
+  delete: createQueryRequest('DELETE'),
+  post: createFdRequest('POST'),
+  put: createFdRequest('PUT'),
+  patch: createFdRequest('PATCH')
 }
 
 
