@@ -29,6 +29,9 @@ const methods = {
   patch: createFdRequest('PATCH')
 }
 
+export const getAbsoluteUrl = baseUrl => path => `${baseUrl}${path}`;
+
+export const withoutUndefinedParams = data => JSON.parse(JSON.stringify(data));
 
 export const getJson = resp => resp.json();
 
