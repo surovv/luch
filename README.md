@@ -1,3 +1,5 @@
+Promise-based http client to make isomorphic-fetch requests in more easier way
+
 # luch
 [![Code Climate](https://codeclimate.com/github/surovv/luch/badges/gpa.svg)](https://codeclimate.com/github/surovv/luch) [![bitHound Overall Score](https://www.bithound.io/github/surovv/luch/badges/score.svg)](https://www.bithound.io/github/surovv/luch)
 
@@ -31,7 +33,7 @@ require('luch');
 
 luch('api.web.com').then(response => response.json()).then(data => fn(data)).catch(err => errFn(err))
 
-luch.get('api.web.com', {param: 42, foo: 'bar'})
+luch.get('api.web.com', {param: 42, foo: 'bar', some: {nested: ['val', 'ues']}});
 
-luch.post('api.web.com/auth', {email: 'mail@mail.mail', password: 'mailmail!mail!!!!'})
+luch.post('api.web.com/auth', {email: 'mail@mail.mail', password: 'mailmail!mail!!!!'});
 ```
