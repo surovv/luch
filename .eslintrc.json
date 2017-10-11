@@ -1,5 +1,5 @@
 {
-  "plugins": ["fp", "prefer-object-spread"],
+  "plugins": ["fp"],
   "extends": ["plugin:fp/recommended"],
   "parser": "babel-eslint",
   "env": {

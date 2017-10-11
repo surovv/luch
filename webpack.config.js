@@ -7,7 +7,6 @@ const joinToDirname = pth => path.join(__dirname, pth);
 
 module.exports = {
   cache: true,
-  devtool: 'eval',
 
   entry:  {
     luch: joinToDirname('/src/luch.js'),
@@ -27,7 +26,6 @@ module.exports = {
         loader: 'babel-loader',
         options: JSON.stringify({
           presets: ['es2015', 'stage-0'],
-          plugins: ['transform-object-rest-spread']
         })
       }
     ]
