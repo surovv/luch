@@ -37,3 +37,43 @@ luch.get('api.web.com', {param: 42, foo: 'bar', some: {nested: ['val', 'ues']}})
 
 luch.post('api.web.com/auth', {email: 'mail@mail.mail', password: 'mailmail!mail!!!!'});
 ```
+
+
+## Methods
+
+### luch(url [, options])
+You can call luch like function. It saves all deafault `fetch` flexibility
+```js
+luch(url, {
+  method: "POST",
+  body: JSON.stringify(data),
+  headers: {
+    "Content-Type": "application/json"
+  },
+  credentials: "same-origin"
+})
+```
+
+### luch.get(url [, params, options])
+It stringify params to query-string and uses `method: 'GET'` by default
+```js
+luch.get('api.web.com', {lo: 'fi'});
+```
+
+### luch.head(url [, params, options])
+Like `luch.get` except it uses `method: 'HEAD'`
+
+### luch.delete(url [, params, options])
+Like `luch.get` except it uses `method: 'DELETE'`
+
+### luch.post(url [, data, options])
+Uses `form-data` for packing data argument, uses `method: 'POST'`
+```js
+luch.post('api.web.com/users', {name: 'IVAN', surname: 'STAPH'});
+```
+
+### luch.put(url [, data, options])
+Like `luch.post` except it uses `method: 'PUT'`
+
+### luch.patch(url [, data, options])
+Like `luch.post` except it uses `method: 'PATCH'`

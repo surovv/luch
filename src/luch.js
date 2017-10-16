@@ -26,15 +26,15 @@ const methods = {
   post: createFdRequest('POST'),
   put: createFdRequest('PUT'),
   patch: createFdRequest('PATCH')
-}
+};
+
+export const luch = Object.assign((url, options = {}) => fetch(url, options), methods);
+
+export default luch;
+
 
 export const getAbsoluteUrl = baseUrl => path => `${baseUrl}${path}`;
 
 export const withoutUndefinedParams = data => JSON.parse(JSON.stringify(data));
 
 export const getJson = resp => resp.json();
-
-
-export const luch = Object.assign((url, options = {}) => fetch(url, options), methods);
-
-export default luch;
