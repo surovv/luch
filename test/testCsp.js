@@ -6,15 +6,8 @@ app.use(csp({
   // Specify directives as normal.
   directives: {
     defaultSrc: ["'self'", 'http://localhost:3000'],
-    childSrc: [
-        'https://youtube.com', 'https://twitter.com', 'https://facebook.com',
-        'https://instagram.com', 'https://platform.twitter.com/',
-        'https://syndication.twitter.com/'
-    ],
-    scriptSrc: ['http://localhost:5000', 'https://youtube.com',
-        'https://twitter.com', 'https://facebook.com', 'https://instagram.com',
-        'http://localhost:3000', 'https://platform.twitter.com'
-    ],
+    childSrc: ["'self'"],
+    scriptSrc: ['http://localhost:3000'],
     styleSrc: ["'unsafe-inline'"], // for time being
     fontSrc: ["'self'"],
     imgSrc: ["'self'", 'data:', "*"], // for time being
