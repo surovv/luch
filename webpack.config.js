@@ -1,5 +1,5 @@
 /* eslint "fp/no-mutation": ["error", {"commonjs": true}] */
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 const webpack = require('webpack');
 const path = require('path');
 
@@ -61,19 +61,4 @@ module.exports = {
   stats: {
     children: false
   },
-
-  plugins: [
-    new UglifyJsPlugin({
-    uglifyOptions: {
-      ie8: false,
-      mangle: { eval: true },
-      output: {
-        comments: false,
-        beautify: false,
-      },
-      compress: true,
-      warnings: false
-    }
-  })
-  ]
 }
