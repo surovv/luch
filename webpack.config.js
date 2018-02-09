@@ -10,7 +10,8 @@ module.exports = {
 
   entry:  {
     luch: joinToDirname('/src/luch.js'),
-},
+  },
+
   output: {
     path: joinToDirname('/dist'),
     filename: '[name].js',
@@ -18,11 +19,19 @@ module.exports = {
     libraryTarget: 'umd'
   },
 
+  resolve: {
+    extensions: ['.js'],
+    alias: {
+      qsp: path.resolve(__dirname, 'node_modules/qsp/src/qsp.js'),
+    },
+
+  },
+
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         loader: 'babel-loader',
         options: JSON.stringify({
           presets: ['es2015', 'stage-0'],
@@ -49,8 +58,7 @@ module.exports = {
       }
     }
   ],
-
   stats: {
     children: false
-  }
+  },
 }
