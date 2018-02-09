@@ -1,5 +1,5 @@
 /* eslint "fp/no-mutation": ["error", {"commonjs": true}] */
-
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 
@@ -10,7 +10,8 @@ module.exports = {
 
   entry:  {
     luch: joinToDirname('/src/luch.js'),
-},
+  },
+
   output: {
     path: joinToDirname('/dist'),
     filename: '[name].js',
@@ -18,11 +19,19 @@ module.exports = {
     libraryTarget: 'umd'
   },
 
+  resolve: {
+    extensions: ['.js'],
+    alias: {
+      qsp: path.resolve(__dirname, 'node_modules/qsp/src/qsp.js'),
+    },
+
+  },
+
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         loader: 'babel-loader',
         options: JSON.stringify({
           presets: ['es2015', 'stage-0'],
@@ -49,8 +58,22 @@ module.exports = {
       }
     }
   ],
-
   stats: {
     children: false
-  }
+  },
+
+  plugins: [
+    new UglifyJsPlugin({
+    uglifyOptions: {
+      ie8: false,
+      mangle: { eval: true },
+      output: {
+        comments: false,
+        beautify: false,
+      },
+      compress: true,
+      warnings: false
+    }
+  })
+  ]
 }
