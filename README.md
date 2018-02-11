@@ -1,11 +1,11 @@
-Promise-based http client to make isomorphic-fetch requests in more easier way
+Light and flexible promise-based http client built on top of isomorphic-fetch with usefull extra functionality
 
 # luch
 [![Code Climate](https://codeclimate.com/github/surovv/luch/badges/gpa.svg)](https://codeclimate.com/github/surovv/luch) [![bitHound Overall Score](https://www.bithound.io/github/surovv/luch/badges/score.svg)](https://www.bithound.io/github/surovv/luch)
 
-The `luch`  is wrapper for [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch "isomorphic-fetch"), it provides some extra methods to make requests in more easier way and saves all default configuration flexibility.
+The `luch`  is light and flexible http client built on top of [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch "isomorphic-fetch"), which build on [GitHub's WHATWG Fetch polyfill](https://github.com/github/fetch).
 
-The `luch` is Promise-based HTTP client for browser and node.js, it built on top of isomorphic-fetch which build on [GitHub's WHATWG Fetch polyfill](https://github.com/github/fetch).
+The `luch` could be used for both environments as for browser and for node.js, it provides possibility to make requests in easy laconic way with flexible configuration. Also `luch` uses isomorphic and standardized base under the hood because it built on top of isomorphic-fetch.
 
 ## Warnings
 According to origin [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch "isomorphic-fetch") docs
@@ -19,61 +19,189 @@ According to origin [isomorphic-fetch](https://github.com/matthew-andrews/isomor
 
 ## Installation
 
-###  NPM
+####  NPM
 
 ```sh
 npm install --save luch es6-promise
 ```
 
-## Usage
+## luch API
 
+##### luch(url [, options])
 ```js
 require('es6-promise').polyfill();
-require('luch');
+const luch = require('luch').default;
+// or es6
+import luch from 'luch';
 
-luch('api.web.com').then(response => response.json()).then(data => fn(data)).catch(err => errFn(err))
+const someHeaders = new Headers();
 
-luch.get('api.web.com', {param: 42, foo: 'bar', some: {nested: ['val', 'ues']}});
+const someOptions = {
+  method: 'GET',
+  headers: someHeaders,
+  mode: 'cors',
+  cache: 'default',
+};
 
-luch.post('api.web.com/auth', {email: 'mail@mail.mail', password: 'mailmail!mail!!!!'});
+luch('api.web.com', someOptions)
+  .then(response => response.json())
+  .then(data => succFn(data))
+  .catch(err => errFn(err))
 ```
 
+### Request method aliases
 
-## Methods
+For convenience aliases have been provided for all popular request methods.
 
-### luch(url [, options])
-You can call luch like function. It saves all deafault `fetch` flexibility
+##### luch.get(url [, params, config])
+##### luch.head(url [, params, config])
+##### luch.options(url [, params, config])
+##### luch.delete(url [, params, config])
+##### luch.post(url [, data, config]])
+##### luch.put(url [, data, config]])
+##### luch.patch(url [, data, config]])
+
+###### NOTE
+By default **get head options delete** methods stringify *params* to query-string and **post put patch** uses `form-data` for packing *data* argument.
+
 ```js
-luch(url, {
-  method: "POST",
-  body: JSON.stringify(data),
-  headers: {
-    "Content-Type": "application/json"
-  },
-  credentials: "same-origin"
-})
+luch.get('http://cool.api.com/resource', {limit: 5, offset: 0})
+  .then(response => handleResponse(response))
+  .catch(err => handleErr(err));
+
+luch.post('http://cool.api.com/things', {name: 'luch', howCoolItIs: 'very cool'});
+
+
+const optns = {
+  headers: new Headers(),
+  cache: 'default',
+};
+
+const vals = {
+  name: 'dog',
+  howCoolItIs: 'WUF WUF',
+};
+
+luch.put('http://cool.api.com/things', vals, optns);
 ```
 
-### luch.get(url [, params, options])
-It stringify params to query-string and uses `method: 'GET'` by default
+## luchFor
+
+**luchFor** is method for defining customized luch-like clients with common configuration for multi requests.
+##### luchFor(baseUrl [, baseOptions])
+
 ```js
-luch.get('api.web.com', {lo: 'fi'});
+// base.js
+import {luchFor} from 'luch';
+
+const localhostUrl = 'http://localhost:3000';
+
+const localhostOptions = {
+  headers: new Headers({
+    "Content-Type": "application/json",
+  }),
+};
+
+export const localhostLuch = luchFor(localhostUrl, localhostOptions);
+
+// Voila! Now you can use it like original luch, but with predefined configuration
+
+localhostLuch('/');
+// => same as luch(`${localhostUrl}/`, localhostOptions);
+
+const coolArticle = {
+  title: 'LUCH FOR?? FOR WHAT??!!?',
+  desc: 'WUF WUF',
+};
+
+localhostLuch.post('/articles', coolArticle);
+// same as luch.post(`${localhostUrl}/articles`, coolArticle, localhostOptions);
 ```
-
-### luch.head(url [, params, options])
-Like `luch.get` except it uses `method: 'HEAD'`
-
-### luch.delete(url [, params, options])
-Like `luch.get` except it uses `method: 'DELETE'`
-
-### luch.post(url [, data, options])
-Uses `form-data` for packing data argument, uses `method: 'POST'`
+###### Thats not all!
+You can call **addToBaseConfig** method on luchFor objects, it especially usefull with modules using.
+##### addToBaseConfig(path [, options])
 ```js
-luch.post('api.web.com/users', {name: 'IVAN', surname: 'STAPH'});
+// users.js
+import {localhostLuch} from './base';
+
+const usersPath = '/users';
+
+const usersConfig = {
+  cache: 'default',
+};
+
+const usersLuch = localhostLuch.addToBaseConfig(usersPath, usersConfig);
+
+usersLuch.post('/', {name: 'Dude'});
+
+export const updateUser = (id, data) => userLuch.put(`/${id}`, data);
+```
+###### Note
+You can pass *options* argument like in regular luch request, but it will be united with *baseOptions* by flat merging, so some *baseOptions* attributes values could be overriden by values from *options*.
+
+You can read **baseUrl** and **baseOptions** values from luchFor object
+```js
+console.log(localhostLuch.baseUrl, localhostLuch.baseOptions);
+```
+## Utils
+The `luch` lib provides some extra methods
+
+##### getAbsoluteUrl(baseUrl)(path)
+```js
+import luch, {getAbsoluteUrl} from 'luch';
+
+const apiUrl = 'http://localhost:3000';
+const withApiUrl = getAbsoluteUrl(apiUrl);
+
+
+const user = {...};
+luch.post(withApiUrl('/users'), user);
+// => same as luch.post('http://localhost:3000/users', user)
+
+luch.get(withApiUrl('/resource'));
+// => same as luch.get('http://localhost:3000/resource')
+
+luch.get(withApiUrl('/resource2'));
+luch.get(withApiUrl('/resource3'));
 ```
 
-### luch.put(url [, data, options])
-Like `luch.post` except it uses `method: 'PUT'`
+##### removeUndefinedAttrs(obj)
+```js
+import {removeUndefinedAttrs} from 'luch';
 
-### luch.patch(url [, data, options])
-Like `luch.post` except it uses `method: 'PATCH'`
+const obj = {
+  a: undefined,
+  b: null,
+  c: false,
+  d: 0,
+  e: '',
+  f: 42,
+};
+
+removeUndefinedAttrs(obj);
+/* => {
+  b: null,
+  c: false,
+  d: 0,
+  e: '',
+  f: 42,
+}; */
+
+console.log(obj);
+// => {a: undefined, b: null, ...}
+```
+
+##### getJson
+Use it when you need call **json** method on response
+
+```js
+import luch, {getJson} from 'luch';
+
+// from
+luch(someUrl)
+  .then(response => response.json())
+  .then(data => handleData(data);
+
+// to
+luch(someUrl).then(getJson).then(handleData);
+```
