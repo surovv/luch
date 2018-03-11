@@ -163,6 +163,10 @@ luch.get(withApiUrl('/resource'));
 
 luch.get(withApiUrl('/resource2'));
 luch.get(withApiUrl('/resource3'));
+
+// calling without path argument will return baseUrl
+luch.get(withApiUrl());
+// => luch.get('http://localhost:3000')
 ```
 
 ##### removeUndefinedAttrs(obj)

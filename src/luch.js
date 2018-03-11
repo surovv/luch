@@ -11,7 +11,7 @@ export const appendToFormData = (obj, fd = new FormData()) => {
 };
 
 // getAbsoluteUrl :: String -> String -> String
-export const getAbsoluteUrl = baseUrl => path => `${baseUrl}${path}`;
+export const getAbsoluteUrl = baseUrl => (path = '') => `${baseUrl}${path}`;
 
 // removeUndefinedAttrs :: Object -> Object
 export const removeUndefinedAttrs = obj => JSON.parse(JSON.stringify(obj));
