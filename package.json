@@ -1,6 +1,6 @@
 {
   "name": "luch",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Light and flexible promise-based http client built on top of isomorphic-fetch with useful functionality",
   "main": "dist/luch.js",
   "repository": {
@@ -33,21 +33,20 @@
     "handling"
   ],
   "dependencies": {
-    "form-data": "^2.3.1",
+    "form-data": "^2.3.2",
     "isomorphic-fetch": "^2.2.1",
     "qsp": "^0.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.1",
-    "babel-loader": "^7.1.2",
+    "babel-eslint": "^8.2.2",
+    "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
-    "eslint": "^4.17.0",
+    "eslint": "^4.18.2",
     "eslint-plugin-fp": "^2.3.0",
-    "mocha": "^5.0.0",
-    "webpack": "^3.11.0",
-    "webpack-dev-server": "^2.11.1"
+    "mocha": "^5.0.4",
+    "webpack": "^3.11.0"
   }
 }
