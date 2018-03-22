@@ -1,6 +1,5 @@
 /* eslint "fp/no-mutation": ["error", {"commonjs": true}] */
 
-const webpack = require('webpack');
 const path = require('path');
 
 const joinToDirname = pth => path.join(__dirname, pth);
@@ -8,14 +7,14 @@ const joinToDirname = pth => path.join(__dirname, pth);
 module.exports = {
   cache: true,
 
-  entry:  {
+  entry: {
     luch: joinToDirname('/src/luch.js'),
-},
+  },
   output: {
     path: joinToDirname('/dist'),
     filename: '[name].js',
     library: 'library',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
   },
 
   module: {
@@ -26,9 +25,9 @@ module.exports = {
         loader: 'babel-loader',
         options: JSON.stringify({
           presets: ['env'],
-        })
-      }
-    ]
+        }),
+      },
+    ],
   },
 
   externals: [
@@ -37,20 +36,20 @@ module.exports = {
         root: 'isomorphic-fetch',
         commonjs2: 'isomorphic-fetch',
         commonjs: 'isomorphic-fetch',
-        amd: 'isomorphic-fetch'
-      }
+        amd: 'isomorphic-fetch',
+      },
     },
     {
       'form-data': {
         root: 'form-data',
         commonjs2: 'form-data',
         commonjs: 'form-data',
-        amd: 'form-data'
-      }
-    }
+        amd: 'form-data',
+      },
+    },
   ],
 
   stats: {
-    children: false
-  }
-}
+    children: false,
+  },
+};

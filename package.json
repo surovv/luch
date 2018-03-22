@@ -1,6 +1,6 @@
 {
   "name": "luch",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Light and flexible promise-based http client built on top of isomorphic-fetch with useful functionality",
   "main": "dist/luch.js",
   "repository": {
@@ -44,7 +44,8 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
-    "eslint": "^4.18.2",
+    "eslint": "^4.19.1",
+    "eslint-config-szh": "0.0.3",
     "eslint-plugin-fp": "^2.3.0",
     "mocha": "^5.0.4",
     "webpack": "^3.11.0"

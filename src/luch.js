@@ -4,9 +4,8 @@ import {stringify as stringifyToQuery} from 'qsp';
 
 
 // appendToFormData :: (Object, FormData) -> FormData
-// export const appendToFormData = (obj, fd = new FormData(), res = Object.keys(obj).map(key => fd.append(key, obj[key]))) => res;
 export const appendToFormData = (obj, fd = new FormData()) => {
-  Object.keys(obj).map(key => fd.append(key, obj[key]))
+  Object.keys(obj).map(key => fd.append(key, obj[key]));
   return fd;
 };
 
@@ -21,16 +20,19 @@ export const getJson = resp => resp.json();
 
 const createFdReqOptions = (method, data) => ({
   method,
-  body: appendToFormData(data)
+  body: appendToFormData(data),
 });
 
 const createQueryReqOptions = method => ({method});
 
 
-const createFdRequest = method => (url, data={}, options={}) => fetch(url, Object.assign({}, createFdReqOptions(method, data), options));
+const createFdRequest = method => (url, data = {}, options = {}) =>
+  fetch(url, Object.assign({}, createFdReqOptions(method, data), options));
 
-const createQueryRequest = method => (url, params, options = {}) =>
-  fetch(`${url}${params ? `?${stringifyToQuery(params)}` : ''}`, Object.assign({}, createQueryReqOptions(method), options));
+const createQueryRequest = method => (url, params, options = {}) => fetch(
+  `${url}${params ? `?${stringifyToQuery(params)}` : ''}`,
+  Object.assign({}, createQueryReqOptions(method), options)
+);
 
 
 const methods = {
@@ -40,7 +42,7 @@ const methods = {
   delete: createQueryRequest('DELETE'),
   post: createFdRequest('POST'),
   put: createFdRequest('PUT'),
-  patch: createFdRequest('PATCH')
+  patch: createFdRequest('PATCH'),
 };
 
 
@@ -51,12 +53,16 @@ export default luch;
 
 export const luchFor = (baseUrl, baseOptions) => Object.assign(
 
-  (path, options = {}) => luch(getAbsoluteUrl(baseUrl)(path)),
+  (path, options = {}) => luch(getAbsoluteUrl(baseUrl)(path), options),
 
   Object.keys(methods).reduce(
     (obj, key) => Object.assign(
       {
-        [key]: (path, data, options = {}) => methods[key](getAbsoluteUrl(baseUrl)(path), data, Object.assign({}, baseOptions, options))
+        [key]: (path, data, options = {}) => methods[key](
+          getAbsoluteUrl(baseUrl)(path),
+          data,
+          Object.assign({}, baseOptions, options)
+        ),
       },
       obj,
     ),
