@@ -195,6 +195,26 @@ console.log(obj);
 // => {a: undefined, b: null, ...}
 ```
 
+##### stryForBody(body, method [, options])
+Stringify body to query for json request options.
+
+```js
+import luch, {stryForBody} from 'luch';
+import {stringifyToQuery} from 'qsp';
+
+const data = {/* WUF WUF */};
+
+const someOptions = {
+  headers: {'Content-Type': 'application/json'},
+  method: 'POST',
+  body: stringifyToQuery(data),
+};
+
+const coolOptions = stryForBody(data, 'POST');
+
+luch('https://wuf.wuf', coolOptions);
+```
+
 ##### getJson
 Use it when you need call **json** method on response
 

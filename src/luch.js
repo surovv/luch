@@ -17,6 +17,16 @@ export const removeUndefinedAttrs = obj => JSON.parse(JSON.stringify(obj));
 
 export const getJson = resp => resp.json();
 
+// stryForBody :: (a, String, Object) -> Object
+export const stryForBody = (body, method, options = {}) => Object.assign(
+  {
+    headers: {'Content-Type': 'application/json'},
+    method,
+    body: stringifyToQuery(body),
+  },
+  options
+);
+
 
 const createFdReqOptions = (method, data) => ({
   method,
