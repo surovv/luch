@@ -200,14 +200,13 @@ Stringify body to query for json request options.
 
 ```js
 import luch, {stryForBody} from 'luch';
-import {stringifyToQuery} from 'qsp';
 
 const data = {/* WUF WUF */};
 
 const someOptions = {
   headers: {'Content-Type': 'application/json'},
   method: 'POST',
-  body: stringifyToQuery(data),
+  body: JSON.stringify(data),
 };
 
 const coolOptions = stryForBody(data, 'POST');

@@ -22,7 +22,7 @@ export const stryForBody = (body, method, options = {}) => Object.assign(
   {
     headers: {'Content-Type': 'application/json'},
     method,
-    body: stringifyToQuery(body),
+    body: JSON.stringify(body),
   },
   options
 );
