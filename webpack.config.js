@@ -23,9 +23,9 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: JSON.stringify({
-          presets: ['env'],
-        }),
+        options: {
+          presets: ['@babel/preset-env'],
+        },
       },
     ],
   },
