@@ -8,13 +8,16 @@ module.exports = {
   cache: true,
 
   entry: {
-    luch: joinToDirname('/src/luch.js'),
+    index: joinToDirname('/src/index.js'),
+    'lib/luch': joinToDirname('/src/lib/luch.js'),
+    'lib/luch-for': joinToDirname('/src/lib/luch-for.js'),
+    'lib/utils': joinToDirname('/src/lib/utils.js'),
   },
   output: {
     path: joinToDirname('/dist'),
     filename: '[name].js',
-    library: 'library',
     libraryTarget: 'umd',
+    globalObject: 'this',
   },
 
   module: {

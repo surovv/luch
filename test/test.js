@@ -1,6 +1,6 @@
 var assert = require('assert');
 
-const { luch, getAbsoluteUrl } = require('./../dist/luch');
+const {luch, getAbsoluteUrl} = require('../dist');
 
 describe('Luch CRUD', function() {
   let withJSONPlaceholder;

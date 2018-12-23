@@ -3,7 +3,7 @@ Light and flexible promise-based http client built on top of isomorphic-fetch wi
 # luch
 [![Code Climate](https://codeclimate.com/github/surovv/luch/badges/gpa.svg)](https://codeclimate.com/github/surovv/luch) [![bitHound Overall Score](https://www.bithound.io/github/surovv/luch/badges/score.svg)](https://www.bithound.io/github/surovv/luch)
 
-The `luch`  is light and flexible http client built on top of [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch "isomorphic-fetch"), which build on [GitHub's WHATWG Fetch polyfill](https://github.com/github/fetch).
+The `luch`  is light and flexible modular http client built on top of [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch "isomorphic-fetch"), which build on [GitHub's WHATWG Fetch polyfill](https://github.com/github/fetch).
 
 The `luch` could be used for both environments as for browser and for node.js, it provides possibility to make requests in easy laconic way with flexible configuration. Also `luch` uses isomorphic and standardized base under the hood because it built on top of isomorphic-fetch.
 
@@ -30,9 +30,9 @@ npm install --save luch es6-promise
 ##### luch(url [, options])
 ```js
 require('es6-promise').polyfill();
-const luch = require('luch').default;
+const {luch} = require('luch');
 // or es6
-import luch from 'luch';
+import {luch} from 'luch';
 
 const someHeaders = new Headers();
 
@@ -62,7 +62,7 @@ For convenience aliases have been provided for all popular request methods.
 ##### luch.patch(url [, data, config]])
 
 ###### NOTE
-By default **get head options delete** methods stringify *params* to query-string and **post put patch** uses `form-data` for packing *data* argument.
+By default **get head options delete** methods stringify *params* to query-string and **post put patch** pack *data* argument to body as json.
 
 ```js
 luch.get('http://cool.api.com/resource', {limit: 5, offset: 0})
@@ -148,7 +148,7 @@ The `luch` lib provides some extra methods
 
 ##### getAbsoluteUrl(baseUrl)(path)
 ```js
-import luch, {getAbsoluteUrl} from 'luch';
+import {luch, getAbsoluteUrl} from 'luch';
 
 const apiUrl = 'http://localhost:3000';
 const withApiUrl = getAbsoluteUrl(apiUrl);
@@ -195,30 +195,27 @@ console.log(obj);
 // => {a: undefined, b: null, ...}
 ```
 
-##### stryForBody(body, method [, options])
-Stringify body to query for json request options.
+##### appendToFormData(body [, formData])
+Append or transform object to FormData.
 
 ```js
-import luch, {stryForBody} from 'luch';
+import {luch, appendToFormData} from 'luch';
 
 const data = {/* WUF WUF */};
 
-const someOptions = {
-  headers: {'Content-Type': 'application/json'},
+const options = {
   method: 'POST',
-  body: JSON.stringify(data),
+  body: appendToFormData(data),
 };
 
-const coolOptions = stryForBody(data, 'POST');
-
-luch('https://wuf.wuf', coolOptions);
+luch('https://wuf.wuf', options);
 ```
 
 ##### getJson
 Use it when you need call **json** method on response
 
 ```js
-import luch, {getJson} from 'luch';
+import {luch, getJson} from 'luch';
 
 // from
 luch(someUrl)

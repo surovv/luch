@@ -1,13 +1,14 @@
 {
   "name": "luch",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Light and flexible promise-based http client built on top of isomorphic-fetch with useful functionality",
-  "main": "dist/luch.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/surovv/luch.git"
   },
   "scripts": {
+    "start": "(yarn install || npm install) && npm run build && npm test",
     "build": "webpack -p",
     "test": "./node_modules/.bin/mocha ./test/test.js"
   },
